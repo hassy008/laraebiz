@@ -42,7 +42,6 @@ class CategoryController extends Controller
     Session::put('message','New Category Added Successfully'); 
     return redirect::to('/add-category');
     //                ->with(compact('level'));
-
     }
 
     public function manageCategory()
