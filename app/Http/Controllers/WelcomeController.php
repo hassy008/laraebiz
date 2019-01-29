@@ -34,9 +34,15 @@ class WelcomeController extends Controller
 
     public function contactUs()
     {
-       $contact=view('frontEnd.contact.contact-us'); 
+      // $all_social=DB::table('social')   
+         //       ->first();
+
+       $contact=view('frontEnd.contact.contact-us');
+           //     ->with('all_social', $all_social);
+       
        return view('frontEnd.master')
                 ->with('mainContent', $contact);
+
     }
 
     public function postContact(Request $request)

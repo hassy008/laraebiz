@@ -64,7 +64,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 
-								<li><a href="#"> Account</a></li>
+								<li><a href="{{ url('/profile-customer') }}"> Account</a></li>
 
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 					<?php 

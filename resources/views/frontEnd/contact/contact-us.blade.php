@@ -71,20 +71,20 @@ Contact Details
 	    					<h2 class="title text-center">Social Networking</h2>
 							<ul>
 			<?php 
-		        $all_social=DB::table('social')   
-		            ->first();
+		       $show_social_account = DB::table('social')
+  				->first();
 		    ?>	
 								<li>
-									<a href="{{ $all_social->facebook }}"><i class="fa fa-facebook"></i></a>
+									<a href="{{ $show_social_account->facebook }}"><i class="fa fa-facebook"></i></a>
 								</li>
 								<li>
-									<a href="{{ $all_social->twitter }}"><i class="fa fa-twitter"></i></a>
+									<a href="{{ $show_social_account->twitter }}"><i class="fa fa-twitter"></i></a>
 								</li>
 								<li>
-									<a href="{{ $all_social->google_plus }}"><i class="fa fa-google-plus"></i></a>
+									<a href="{{ $show_social_account->google_plus }}"><i class="fa fa-google-plus"></i></a>
 								</li>
 								<li>
-									<a href="{{ $all_social->youtube }}"><i class="fa fa-youtube"></i></a>
+									<a href="{{ $show_social_account->youtube }}"><i class="fa fa-youtube"></i></a>
 								</li>
 							</ul>
 	    				</div>

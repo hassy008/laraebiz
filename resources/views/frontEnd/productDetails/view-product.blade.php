@@ -80,31 +80,33 @@ Product Details
 								
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
-										<div class="item active">
-										  <a href=""><img src="{{ asset('public/frontEnd/') }}/images/product-details/similar1.jpg" alt=""></a>
-										  <a href=""><img src="{{ asset('public/frontEnd/') }}/images/product-details/similar2.jpg" alt=""></a>
-										  <a href=""><img src="{{ asset('public/frontEnd/') }}/images/product-details/similar3.jpg" alt=""></a>
-										</div>
-										<div class="item">
-										  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-										</div>
-										<div class="item">
-										  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-										</div>
-										
-									</div>
 
-								  <!-- Controls -->
-								  <a class="left item-control" href="#similar-product" data-slide="prev">
-									<i class="fa fa-angle-left"></i>
-								  </a>
-								  <a class="right item-control" href="#similar-product" data-slide="next">
-									<i class="fa fa-angle-right"></i>
-								  </a>
+		<?php
+			$show_alt_images = DB::table('alt_images')
+		  		->where('product_id', $show_product_details->id)
+		  		->where('status', 0)
+		  		->get();
+		$i=1;
+		foreach($show_alt_images as $alt_img) 
+		{
+			if($i==1){
+		?>
+						<div class="item active">
+				<?php } else{?>	
+						<div class="item">
+				<?php } ?>			
+						  <img src="{{ asset($alt_img->alt_image) }}" style="width: 100%; height: 150px;">
+						</div>
+				<?php  $i++; } ?>								
+						</div>
+
+							  <!-- Controls -->
+							  <a class="left item-control" href="#similar-product" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							  </a>
+							  <a class="right item-control" href="#similar-product" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							  </a>
 							</div>
 
 						</div>
@@ -133,8 +135,24 @@ Product Details
 								<p><b>Color:</b> {{ $show_product_details->product_color }}</p>
 {{-- 					<p><i class="{{ $show_product_details->product_color }}"></i></p> --}}
 								<p><b>Size:</b> {{ $show_product_details->product_size }}</p>
+								<a href=""><img src="{{ asset('public/frontEnd/')}}/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+<?php
+	$show_alt_images = DB::table('alt_images')
+		->where('product_id', $show_product_details->id)
+		->where('status', 0)
+		->get();
+?>
+@if(count($show_alt_images) !=0 )
+<div class="col-md-12">
+	<h2 align="center">Other Images</h2>
+@foreach($show_alt_images as $alt_img)  
+  <div class="col-md-3">
+  	<img src="{{ asset($alt_img->alt_image) }} "height="50" width="80">	
+  </div>	
+@endforeach
+</div>
+@endif
 
-								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->

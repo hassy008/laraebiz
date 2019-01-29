@@ -34,7 +34,8 @@ View Order
                           Name: {{ $customerData->customer_name }} <br>
                           Address: {{ $customerData->customer_address }}<br>
                           Phone: {{ $customerData->customer_phone }}<br>
-                          City: {{ $customerData->customer_city }} <strong>Zip</strong>: {{ $customerData->customer_zip }}
+                          City: {{ $customerData->customer_city }} <strong><br>
+                          Zip</strong>: {{ $customerData->customer_zip }}
                         </p>   
                    </div>
                    <div class="span4">
@@ -43,7 +44,8 @@ View Order
                            Name: {{ $shippingData->shipping_first_name }} {{ $shippingData->shipping_last_name }}<br>
                            Address: {{ $shippingData->shipping_address }}<br>
                            Phone: {{ $shippingData->shipping_phone }}<br>
-                           City: {{ $shippingData->shipping_city }} <strong>Zip</strong>: {{ $shippingData->shipping_zip }}
+                           City: {{ $shippingData->shipping_city }} <strong><br>
+                           Zip</strong>: {{ $shippingData->shipping_zip }}
                            
                        </p>
                    </div>
@@ -89,8 +91,8 @@ View Order
                <div class="row-fluid">
                    <div class="span4 invoice-block pull-right">
                        <ul class="unstyled amounts">
-                           <li><strong> Total amount(Including 5% VAT) :</strong> {{ $orderData->order_total }} </li>
-                           
+                          <li><strong style="margin-right: 50px;">Shipping Charge </strong> BDT 50 </li>
+                          <li><strong> Total amount(Including 5% VAT) :</strong> {{ $orderData->order_total }} </li> 
                        </ul>
                    </div>
                </div>

@@ -29,12 +29,12 @@
 		<div class="carousel-inner">
 <?php
  // $show_all_slider=DB::table('slider')
-  $show_all_slider=DB::table('product')
+  $show_top_slider=DB::table('product')
   		//->where('publicationStatus', 1)
   		->where('top_product', 1)
   		->get();
 	$i=1;
-  	foreach($show_all_slider as $v_slider)
+  	foreach($show_top_slider as $v_slider)
   	{   
   		if($i==1){
 ?>

@@ -24,6 +24,7 @@ Manage Product
                     <th class="hidden-phone"><i class="icon-question-sign"></i> Descrition</th>
                     <th><i class="icon-bookmark"></i> Product Price</th>
                     <th>Product Image</th>
+                    <th>Alter Image</th>
                     <th><i class=" icon-edit"></i> Status</th>
                     <th>Action</th>
                 </tr>
@@ -37,6 +38,15 @@ Manage Product
                     <td class="hidden-phone">{{ $v_product->product_short_description }}</td>
                     <td>TK {{ $v_product->product_price }} </td>
                     <td><img src="{{ asset('public/products/'.$v_product->product_image) }}" height="50" width="80"> </td>
+                    <td>
+        <?php
+          $img_count=DB::table('alt_images')
+            ->where('product_id', $v_product->id)
+            ->get();
+        ?>            
+        <p>{{ count($img_count) }} images found</p>
+                        <a href="{{ url('/add-alt-images/'.$v_product->id) }}" class="btn btn-info" style="border-radius: 20px;"><i class="fa fa-plus"></i>Add</a>
+                    </td>
 
                     <td>
                     <?php
@@ -59,7 +69,7 @@ Manage Product
 
                     <td>
 						<?php 
-						if($v_product->publicationStatus==1 )
+						if($v_product->publicationStatus == 1 )
 						{	
 						?>  
 						<a href="{{ url('/unpublished-product/'.$v_product->id) }}" style="color:white;"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>

@@ -113,7 +113,7 @@ header {
            </div>
 <header class="clearfix">
       <div id="logo">
-        <img src="{{ asset('public/admin/img/invoice.png') }}">
+        <a href="{{ url('http://localhost/laraebiz') }}"><img src="{{ asset('public/admin/img/invoice.png') }}"></a>
       </div>
       <div id="company">
         <h2 class="name">LaraEbiZ</h2>
@@ -176,7 +176,7 @@ header {
                        <tr>
                            <td>{{ $i++ }}</td>
                            <td>{{ $v_order->product_name }}</td>
-                           <td class="hidden-480">{{ $v_order->product_price }}</td>
+                           <td class="hidden-480" style="text-align: right;">{{ $v_order->product_price }}</td>
                            <td class="hidden-480">{{ $v_order->product_quantity }}</td>
                            <td style="text-align: right;">{{ $v_order->product_price*$v_order->product_quantity }}</td>
                        </tr>
@@ -187,8 +187,8 @@ header {
                <div class="space20"></div>
                <div class="row-fluid">
                    <div class="span4 invoice-block pull-right" style="text-align: right; margin-right: 2px; margin-top: 15px;">
-                      
-                          <strong>Grand Total (Including 5% VAT) :</strong> {{ $orderData->order_total }}
+                      <strong>Shipping Charge </strong>BDT 50  <br>
+                      <strong>Grand Total (Including 5% VAT) :</strong>BDT  {{ $orderData->order_total }}
                        
                    </div>
                </div>

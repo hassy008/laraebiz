@@ -66,7 +66,8 @@ class ProductController extends Controller
             if ($file_size<51200000) {
               $success = $image->move($upload_path, $image_name);
               $data['product_image'] = $image_name;
-              $result = DB::table('product')->insert($data);   
+              $result = DB::table('product')
+                      ->insert($data);   
               } else{
                   exit();
                   return redirect::to('add-product')->with('error', 'Max file size not more than 5MB');
@@ -77,7 +78,8 @@ class ProductController extends Controller
           }
         } 
         else{
-            $result = DB::table('product')->insert($data);
+            $result = DB::table('product')
+                     ->insert($data);
         }
         //--------End Image Upload------//
         if ($result) {
@@ -201,7 +203,9 @@ class ProductController extends Controller
                 unlink('public/products/'.$old_image_path);  
               }
               $data['product_image'] = $image_name;
-              $result = DB::table('product')->where('id', $request->productId)->update($data);   
+              $result = DB::table('product')
+                        ->where('id', $request->productId)
+                        ->update($data);   
               } else{
                   exit();
                   return redirect::to('edit-product')->with('error', 'Max file size not more than 5MB');
@@ -213,7 +217,9 @@ class ProductController extends Controller
         } 
         else{
             $data['product_image'] = $request->last_image_path;
-            $result = DB::table('product')->where('id', $request->productId)->update($data);
+            $result = DB::table('product')
+                      ->where('id', $request->productId)
+                      ->update($data);
         }
         //--------End Image Upload------//
         if ($result) {
@@ -226,6 +232,82 @@ class ProductController extends Controller
         return redirect::to('edit-product/'.$request->productId)->with('error', $err_msg);
         }  
     }
+
+//################ [create ALTER IMAGES .... ]
+    public function addAlterImages($id)
+    {
+      $proInfo = DB::table('product')
+                  ->where('id', $id)
+                  ->get();
+
+//fetch uploaded images from database
+      $altImages=DB::table('alt_images')
+      ->where('product_id', $proInfo[0]->id)
+      ->get();            
+
+      $alter_image = view('admin.product.add-alter-image')
+                    ->with('proInfo', $proInfo)
+                    ->with('altImages', $altImages);
+
+      return view('admin.admin_master')
+            ->with('mainContent', $alter_image);            
+      // return view('admin.product.add-alter-image',compact('proInfo'));            
+    }
+
+    public function saveAlterImages(Request $request)
+    {
+      $data=array();
+      $data['product_id']=$request->product_id ;
+      
+      //$data['status']=$request->product_id ;
+
+
+      $files    = $request->file('image');
+      $filename = $files->getClientOriginalName();
+     // $extension= $files->getClientOriginalExtension();
+      $picture  =date('His').$filename;
+      $image_url='public/products/alt_image/'.$picture;
+      $destinationPath=base_path().'/public/products/alt_image/';
+      $success        =$files->move($destinationPath, $picture);
+
+
+      if($success){
+      $data['alt_image']=$image_url ;  
+      $add_image = DB::table('alt_images')
+              ->insert($data);
+       return back()->with('message','New Altr Images Added Successfully');       
+
+      }
+      else
+        {
+        $error=$files->getErrorMessage();
+        }
+    }
+
+    public function deleteAlterImages($id)
+    {
+      DB::table('alt_images')
+      ->where('id', $id)
+      ->delete();
+      return back()->with('message','Images Deleted Successfully');
+    }
+
+    public function unpublishedAltImage($id)
+    {
+      DB::table('alt_images')
+            ->where('id', $id)
+            ->update(['status'=>1]);
+      return back();        
+    }
+
+    public function publishedAltImage($id)
+    {
+        DB::table('alt_images')
+            ->where('id', $id)
+            ->update(['status'=>0]);
+        return back();    
+    }
+
 
    
 }

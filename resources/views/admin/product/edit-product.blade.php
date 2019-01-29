@@ -156,7 +156,7 @@ Edit Products
 	<div class="form-actions">
 	  <div class="span6">
 	  	<button type="submit" name="btn" class="btn btn-success btn-block">Update Product Info</button>
-	  	<button type="submit" name="btn" class="btn btn-danger btn-block">
+	  	<button type="" name="btn" class="btn btn-danger btn-block">
 	  		<a href="{{ url('/manage-product') }}" style="text-decoration: none; color: white;">Cancel</a>	
 	  	</button>
 	  </div>

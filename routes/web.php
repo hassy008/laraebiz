@@ -99,6 +99,16 @@ Route::get('/top-product/{id}', 'ProductController@topProduct');
 Route::get('/remove-top-product/{id}', 'ProductController@removeTopProduct');
 
 
+//##########################alter Images##############
+Route::get('/add-alt-images/{id}', 'ProductController@addAlterImages');
+Route::post('/save-alt-image', 'ProductController@saveAlterImages');
+Route::get('/delete-altImg/{id}', 'ProductController@deleteAlterImages');
+Route::get('/unpublished-alt-image/{id}', 'ProductController@unpublishedAltImage');
+Route::get('/published-alt-image/{id}', 'ProductController@publishedAltImage');
+
+
+
+
 /*********************[slider image]************************/
 Route::get('/add-slider', 'SliderController@addSlider');
 Route::post('/save-slider', 'SliderController@saveSlider');
