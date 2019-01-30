@@ -11,11 +11,7 @@ session_start();
 
 class WelcomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+//######################  Show PUBLISHED Product on Homepage    ###################################
     public function index()
     {
        $all_published_product=DB::table('product')
@@ -24,14 +20,15 @@ class WelcomeController extends Controller
             ->select('product.*','category.cat_name','manufacturer.manufacturer_name')
             ->where('product.publicationStatus', 1)
             ->paginate(9);
-
-        //$home=view('frontEnd.home.homeContent');       
+      
         $manage_published_product= view('frontEnd.home.homeContent')
             ->with('all_published_product', $all_published_product);       
+       
         return view('frontEnd.master')
                 ->with('mainContent', $manage_published_product);                
     }
 
+// ################# began Contact [Mailing] ###################
     public function contactUs()
     {
       // $all_social=DB::table('social')   
@@ -41,8 +38,7 @@ class WelcomeController extends Controller
            //     ->with('all_social', $all_social);
        
        return view('frontEnd.master')
-                ->with('mainContent', $contact);
-
+            ->with('mainContent', $contact);
     }
 
     public function postContact(Request $request)
@@ -67,14 +63,11 @@ class WelcomeController extends Controller
 
         session()->flash('notification','Your Email sent successfully. We will contact with you soon ');
         return redirect('/contact');
-
     }
+// ################# End Contact ###################
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+//**################       Show Product By Category Began    ################*/
     public function showProductByCategory($cat_id)
     {
         $show_product_by_category=DB::table('product')
@@ -89,13 +82,10 @@ class WelcomeController extends Controller
         return view('frontEnd.master')
                 ->with('mainContent', $manage_product_by_category);
     }
+//**################       Show Product By Category End    ################*/
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/**################  Show Product Details Began [localhost/laraebiz/view-product/1]   ################*/
     public function productDetailsById($product_id)
     {   $show_product_details=DB::table('product')
             /*->join('category','product.product_category','=','category.cat_id')
@@ -112,15 +102,16 @@ class WelcomeController extends Controller
             ->where('product.publicationStatus', 1)
             ->first();
 
-
         $product_details=view('frontEnd.productDetails.view-product')
                 ->with('show_product_details', $show_product_details);
 
         return view('frontEnd.master')
                 ->with('mainContent', $product_details);
     }
+/**################  Show Product Details End [localhost/laraebiz/view-product/1]   ################*/
 
 
+//#########################  Began  Customer  Profile Edit  ################################
     public function editCustomerProfile($customer_id)
     {
         $customer_profile_detail=DB::table('customer')
@@ -161,9 +152,9 @@ class WelcomeController extends Controller
             
       session()->flash('message','Your Profile Updated successfully');      
       return redirect::to('/');
-
-
     }
+//#########################  End  Customer    ################################
+
 
    
 }
