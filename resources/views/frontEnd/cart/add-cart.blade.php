@@ -16,8 +16,21 @@ Cart Details
 				<table class="table table-condensed">
 <?php
 	$contents = Cart::content();
-
 ?>
+@if(session('status'))
+<div class="alert alert-success">
+	{{ session('status') }}
+</div>
+@endif
+@if(session('error'))
+<div class="alert alert-danger">
+	{{ session('error') }}
+</div>
+@endif
+
+
+
+
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Image</td>
@@ -36,9 +49,11 @@ Cart Details
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{ $v_content->name }}</a></h4>
+								<p>Product ID: {{ $v_content->id }}</p>
 							</td>
 							<td class="cart_price">
 								<p>TK {{ $v_content->price }}</p>
+								
 							</td>
 							<td class="cart_quantity">
 								{{-- <div class="cart_quantity_button">
@@ -53,9 +68,11 @@ Cart Details
 			{!! Form::open(['url'=>'/update-cart', 'method'=>'POST']) !!}
                 <div class="color-quality">
                     <div class="color-quality-right">
+                    	<input type="hidden" name="product_id" value="{{ $v_content->id }}">
                         <input type="number" name="qty" value="{{ $v_content->qty }}" min="1">
                         <input type="hidden" name="rowId" value="{{ $v_content->rowId }}">
                         <input type="submit" name="btn" value="Update" class="item_add hvr-outline-out button2">
+                        <p>Only {{ $v_content->options->stock }} left </p>
 
                     </div>
                 </div>
@@ -68,7 +85,7 @@ Cart Details
 								<a class="cart_quantity_delete" href="{{ url('/delete-to-cart/'.$v_content->rowId) }}" onclick="return checkDelete();"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
-				@endforeach		
+				@endforeach		<!--             END FOREACH          -->
 					</tbody>
 				</table>
 			</div>

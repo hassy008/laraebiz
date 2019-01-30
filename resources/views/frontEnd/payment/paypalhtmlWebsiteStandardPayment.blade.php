@@ -1,4 +1,6 @@
 <?php
+
+use Gloudemans\Shoppingcart\Facades\Cart;
   function convertCurrency($from, $to, $amount){
   $url = file_get_contents('https://free.currencyconverterapi.com/api/v5/convert?q=' . $from . '_' . $to . '&compact=ultra');
   $json = json_decode($url, true);
@@ -22,18 +24,18 @@
   function paypal_submit(){
    // var actionName='https://www.paypal.com/cgi-bin/webscr';
    var actionName='https://www.sandbox.paypal.com/cgi-bin/webscr';
- // 	var actionName='https://www.sandbox.paypal.com/cgi-bin/webscr';
+ //   var actionName='https://www.sandbox.paypal.com/cgi-bin/webscr';
 
-  	document.forms.frmOrderAutoSubmit.action=actionName;
-  	document.forms.frmOrderAutoSubmit.submit();
-  }	
+    document.forms.frmOrderAutoSubmit.action=actionName;
+    document.forms.frmOrderAutoSubmit.submit();
+  } 
 </script>
 </head>
 <!--onload Paypal_submit()-->
 <body onload="paypal_submit();">
 <form style="padding: 0px; margin:0px;" name="frmOrderAutoSubmit" method="post">
   <input type="hidden" name="return" value="<?//=base_url()?>paymentMethods/payment_utility/paymentSuccess/<?//=$order_row_id?>.html">
-  <input type="hidden" name="cancel_return" value="<?//=base_url()?>paymentMethods/payment_utility/cancelExpressCheckoutSale/<?//=$order_row_id?>.html">	
+  <input type="hidden" name="cancel_return" value="<?//=base_url()?>paymentMethods/payment_utility/cancelExpressCheckoutSale/<?//=$order_row_id?>.html">  
   
   <input type="hidden" name="upload" value="1">
   <input type="hidden" name="cmd" value="_xclick">
@@ -52,20 +54,27 @@
             ->first();        
 
   $contents = Cart::content();
-  $items='';
-  foreach($contents as $v_content)
-  {
-    $items .=$v_content->name.',';
-  }
+  $items = '' ;
+  $qty   = '' ;
+  //foreach($contents as $v_content)
+  //{
+   // $items .=$v_content->name.','; //name from add-cart.blade.php
+  //  $qty   .=$v_content->qty.',';
+  //}
+
   $amount= Session::get('total');
- 
   $dollar_amount=convertCurrency("BDT", "USD", $amount);
+
 ?>
+@foreach($contents as $v_content)
+<!-- Purchase details-->
+  <input type="hidden" name="quantity" value="{{ $v_content->qty }}">
+  <input type="hidden" name="item_name" value="{{ $v_content->items }}">
+  <input type="hidden" name="amount" value="{{ $dollar_amount }}">  
 
-  <input type="hidden" name="quantity" value="1">
-  <input type="hidden" name="item_name" value="<?php echo $items;?>">
-  <input type="hidden" name="amount" value="<?php echo $dollar_amount; ?>">  
+@endforeach
 
+<!--Customer Info-->
   <input type="hidden" name="rm" value="2">
   <input type="hidden" name="address_override" value="0">
   <input type="hidden" name="first_name" value="<?php echo $customer_info->customer_name?>"> 
@@ -75,14 +84,24 @@
   <input type="hidden" name="address2" value="{{ $shipping_info->shipping_address }}">
   <input type="hidden" name="city" value="{{ $shipping_info->shipping_city }}">
   <input type="hidden" name="state" value="">
-  <input type="hidden" name="zip" value="{{ $shipping_info->shipping_zip }}"> 	
+  <input type="hidden" name="zip" value="{{ $shipping_info->shipping_zip }}">   
 
   <input type="hidden" name="night_phone_a" value="{{ $customer_info->customer_phone }}">
   <input type="hidden" name="night_phone_b" value="">
-  <input type="hidden" name="night_phone_c" value=""> 	
+  <input type="hidden" name="night_phone_c" value="">   
 
+
+
+<!-- after payment -->
+ <input type="hidden" name="return" id="return" value="http://localhost/laraebiz/index.php/thankyou" />
+<!-- Cancel payment -->
+  <input type="hidden" name="cancel_return" id="cancel_return" value="http://localhost/laraebiz/index.php/checkout" />
+  <br>
 
 </form>
 
 </body>
 </html>
+
+
+{{-- <input name="submit" id="paypalbtn" type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/blue-rect-paypalcheckout-34px.png" value="PayPal" formaction="https://www.paypal.com/cgi-bin/webscr"> --}}

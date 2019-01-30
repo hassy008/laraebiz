@@ -91,7 +91,6 @@ class CheckoutController extends Controller
   	$order_id= DB::table('order')
   			->insertGetId($order_data);
 
-
   	$order_details_data= array();
   	$order_details_data['order_id']= $order_id ;		
 

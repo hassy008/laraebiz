@@ -21,6 +21,7 @@ class CreateProductTable extends Migration
             $table->text('product_short_description');
             $table->text('product_long_description');
             $table->float('product_price');
+            $table->string('stock')->nullable();
             $table->string('product_color')->nullable();
             $table->string('product_size')->nullable();
             $table->string('product_image');

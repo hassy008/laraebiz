@@ -1,6 +1,6 @@
 @extends('admin.admin_master')
 @section('title')
-View Order 
+Edit Order 
 @endsection
 
 @section('mainContent')
@@ -29,8 +29,8 @@ View Order
                <div class="space20"></div>
                <div class="row-fluid invoice-list">
                    <div class="span4">
-                       <h5><strong>BILLING ADDRESS</strong></h5>
-                       <table>
+                       <h5><strong>BILLING ADDRESS</strong></h5> 
+                        <table>
                            <tr>
                              <td>Name: </td>
                              <td><strong>{{ $customerData->customer_name }}</strong></td>
@@ -51,7 +51,7 @@ View Order
                              <td>Zip: </td>
                              <td>{{ $customerData->customer_zip }}</td>
                            </tr>
-                       </table>  
+                       </table> 
                    </div>
                    <div class="span4">
                        <h5><strong>SHIPPING ADDRESS</h5></strong>
@@ -80,6 +80,7 @@ View Order
                    </div>
                    <div class="span4">
                        <h5><strong>INVOICE INFO</h5></strong>
+    
                        <table>
                            <tr>
                              <td>Invoice Number: </td>
@@ -95,11 +96,28 @@ View Order
                            </tr>
                             <tr>
                              <td>Order Status: </td>
-                             <td>{{ $orderData->order_status }}</td>
+            <?php
+             $orderStatusOption=array(
+              'pending'    => 'Pending',
+              'processing' => 'Processing',
+              'canceled'   => 'Canceled',
+              'in_shipment'=> 'In Shipment',
+              'complete'   => 'Complete',
+              );
+            ?>
+               <td>{{ Form::select('order_status',$orderStatusOption,$orderData->order_status) }}</td>
+                             
                            </tr>
                             <tr>
                              <td>Payment Status: </td>
-                             <td>{{ $orderData->payment_status }}</td>
+            <?php
+             $paymentStatusOption=array(
+              'pending'    => 'Pending',
+              'received' => 'Received',
+              'canceled'   => 'Canceled',
+              );
+            ?>         
+               <td>{{ Form::select('payment_status',$paymentStatusOption,$orderData->payment_status) }}</td>
                            </tr>
                         
                        </table>
@@ -144,8 +162,8 @@ View Order
                </div>
                <div class="space20"></div>
                <div class="row-fluid text-center">
-                   <a href="{{ url('/edit-order/'.$orderData->order_id) }}" class="btn btn-success btn-large hidden-print"> Edit Invoice <i class="icon-check"></i></a>
-                   <a class="btn btn-inverse btn-large hidden-print" onclick="javascript:window.print();">Print <i class="icon-print icon-big"></i></a>
+                   <a type="submit" class="btn btn-success btn-large hidden-print"> Update Invoice <i class="icon-check"></i></a>
+                   
                </div>
            </div>
        </div>

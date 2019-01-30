@@ -24,7 +24,7 @@ Route::get('/view-product/{product_id}', 'WelcomeController@productDetailsById')
 /************ [ Customer Profile] ***************/
 Route::get('/profile-customer/{id}', 'WelcomeController@editCustomerProfile');
 Route::post('/update-customer-profile', 'WelcomeController@updateCustomerProfile');
-
+Route::get('/my-order', 'WelcomeController@myOrder');
 
 //****************cart product*****************
 Route::post('/add-to-cart', 'CartController@addToCart');
@@ -44,6 +44,9 @@ Route::post('/save-order','CheckoutController@saveOrder');
 //admin manage-order
 Route::get('/manage-order','OrderDetailsController@manageOrder');
 Route::get('/view-order/{id}','OrderDetailsController@viewOrder');
+Route::get('/edit-order/{id}', 'OrderDetailsController@editOrder');
+Route::post('/update-order', 'OrderDetailsController@updateOrder');
+
 Route::get('/generate-pdf/{id}','PdfController@generatePdf');
 
 

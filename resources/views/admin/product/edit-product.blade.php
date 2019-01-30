@@ -108,6 +108,18 @@ Edit Products
 </span>
 @endif 	  
     </div>
+     <div class="control-group">
+      <label class="control-label">Product Stock</label>
+      <div class="controls">
+        <input type="text" class="span6" name="productStock" min="1" value="{{ $product_info->stock }}">  
+      </div>
+ @if ($errors->has('productStock'))
+<span class="invalid-feedback" role="alert" style="color: red;">
+    <strong>{{ $errors->first('productStock') }}</strong>
+</span>
+@endif    
+    </div>
+
  	  <div class="control-group">
  	  	<label class="control-label">Product Color(Optional)</label>
  	  	<div class="controls">

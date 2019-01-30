@@ -24,7 +24,8 @@ class OrderDetailsController extends Controller
             ->join('payment','payment.payment_id','=','order.payment_id')
             ->select('order.*','customer.customer_name','payment.payment_type')
             ->orderBy('order_id', 'desc')
-            ->get();
+            //->get();
+            ->paginate(10);
         $manage_order=view('admin.order_details.manage-order')
               ->with('all_order_info', $all_order_info);
         return view('admin.admin_master')
@@ -96,8 +97,46 @@ class OrderDetailsController extends Controller
               ->with('orderProducts', $orderProducts);
 
       return view('admin.admin_master')
-                ->with('mainContent', $view_order_page); 
+           ->with('mainContent', $view_order_page); 
   }
+
+ public function editOrder($id)
+ {
+    $orderData= DB::table('order')
+        ->join('payment','payment.payment_id','=','order.payment_id')
+        ->where('order_id', $id)
+        ->select('order.*','payment.payment_type','payment.payment_status')
+        ->first();
+
+      $customerData=DB::table('customer')
+        ->where('customer_id', $orderData->customer_id)
+        ->first();
+
+      $shippingData=DB::table('shipping')
+        ->where('shipping_id', $orderData->shipping_id)
+        ->first();
+
+      $orderProducts=DB::table('order_details')
+        ->join('product','product.id','=','order_details.product_id')
+        ->where('order_id', $orderData->order_id)
+        ->get();
+
+  $edit_order_page = view('admin.order_details.edit-order')
+        ->with('orderData', $orderData)
+        ->with('customerData', $customerData) 
+        ->with('shippingData', $shippingData)
+        ->with('orderProducts', $orderProducts);
+
+  return view('admin.admin_master')
+       ->with('mainContent', $edit_order_page); 
+ }
+
+  public function updateOrder(Request $request)
+  {
+    return back();
+
+  }
+
 
 
    

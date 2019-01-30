@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\redirect;
 use Session;
+use App\products;
 session_start();
 use Cart;
 
@@ -28,6 +29,8 @@ class CartController extends Controller
     	$data['name'] = $product_info->product_name;
     	$data['price'] = $product_info->product_price;
 		$data['options']['image'] = $product_info->product_image;
+        $data['options']['stock'] = $product_info->stock;
+
 
 			//Cart::destroy($data);
     	  Cart::add($data);
@@ -59,13 +62,39 @@ class CartController extends Controller
     {
     	$rowId= $request->rowId;
     	$qty  = $request->qty;
+        $prodId = $request->product_id;
+
+        $products = products::find($prodId);
+       // dd($products);
+
+        $stock= $products->stock;
 
     	// echo $qty;
     	//  echo '</br>'; 
-    	//  echo $rowId; 
+    	 // dd ($rowId); 
 
-    	Cart::update($rowId, $qty);
-    	return redirect::to('/show-cart');
+    	//Cart::update($rowId, $qty);
+    	//return redirect::to('/show-cart');
+
+
+        if ($qty < $stock) {
+            $msg = "Cart is Updated";
+          Cart::update($rowId, $qty);
+          return back()->with('status', $msg);
+        }   else{
+            $msg = " Out of Stock";
+            return back()->with('error', $msg);
+        }
+
+
+
+
+
+
+
+
+
+
     }
 
 

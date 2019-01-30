@@ -153,6 +153,25 @@ class WelcomeController extends Controller
       session()->flash('message','Your Profile Updated successfully');      
       return redirect::to('/');
     }
+
+    public function myOrder()
+    {
+$customer_id=Session::get('customer_id');  
+
+      $orders = DB::table('order_details')
+        ->leftjoin('order','order.order_id','=','order_details.order_id')
+        ->leftjoin('product','product.id','=','order_details.product_id')
+        ->where('order.customer_id', '=', $customer_id)
+        //->where('')
+        ->get();
+
+      $view_order_page=view('frontEnd.profile.my-order')
+            ->with('orders', $orders);
+
+      return view('frontEnd.master')
+           ->with('mainContent', $view_order_page);
+     
+    }
 //#########################  End  Customer    ################################
 
 

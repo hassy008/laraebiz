@@ -42,15 +42,16 @@ class ProductController extends Controller
         ]);
       try {
         $data = array();
-        $data['product_name']=$request->productName ;
-        $data['product_category']=$request->categoryId ;
-        $data['product_manufacturer']=$request->manufacturerId ;
+        $data['product_name']         =$request->productName ;
+        $data['product_category']     =$request->categoryId ;
+        $data['product_manufacturer'] =$request->manufacturerId ;
         $data['product_short_description']=$request->productShortDescription ;
-        $data['product_long_description']=$request->productLongDescription ;
-        $data['product_price']=$request->productPrice ;
-        $data['product_color']=$request->productColor ;
-        $data['product_size']=$request->productSize ;
-        $data['publicationStatus']=$request->publicationStatus ;
+        $data['product_long_description'] =$request->productLongDescription ;
+        $data['product_price']        =$request->productPrice ;
+        $data['stock']                =$request->productStock;
+        $data['product_color']        =$request->productColor ;
+        $data['product_size']         =$request->productSize ;
+        $data['publicationStatus']    =$request->publicationStatus ;
 
 //----------------START IMAGE UPLOAD--------------//
         $image=$request->file('productImage');
