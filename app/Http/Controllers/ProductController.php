@@ -22,7 +22,7 @@ class ProductController extends Controller
                     ->get();
         $published_manufacturer=DB::table('manufacturer')
                         ->where('publicationStatus', 1)
-                        ->get();            
+                        ->get();
         $add_product = view('admin.product.add-product')
                         ->with('published_category', $published_category)
                         ->with('published_manufacturer', $published_manufacturer);
@@ -67,16 +67,16 @@ class ProductController extends Controller
               $success = $image->move($upload_path, $image_name);
               $data['product_image'] = $image_name;
               $result = DB::table('product')
-                      ->insert($data);   
+                      ->insert($data);
               } else{
                   exit();
                   return redirect::to('add-product')->with('error', 'Max file size not more than 5MB');
               }
-          } 
+          }
           else {
             return redirect::to('add-product')->with('error', 'You have to put right file type( jpg/png/jpeg ) only');
           }
-        } 
+        }
         else{
             $result = DB::table('product')
                      ->insert($data);
@@ -90,17 +90,17 @@ class ProductController extends Controller
     } catch (\Exception $e) {
         $err_msg= \Lang::get($e->getMsg());
         return redirect::to('add-product')->with('error', $err_msg);
-        }  
+        }
     }
 
     public function manageProduct()
     {
       $all_product=DB::table('product')
-                     ->paginate(10);  
+                     ->paginate(10);
       $manage_product=view('admin.product.manage-product')
                         ->with('all_product', $all_product);
       return view('admin.admin_master')
-                ->with('mainContent', $manage_product);  
+                ->with('mainContent', $manage_product);
 
     }
 
@@ -110,7 +110,7 @@ class ProductController extends Controller
       DB::table('product')
             ->where('id', $product_id)
             ->update(['publicationStatus'=>0]);
-      return redirect::to('/manage-product');        
+      return redirect::to('/manage-product');
     }
 
     public function publishedProduct($product_id)
@@ -118,7 +118,7 @@ class ProductController extends Controller
         DB::table('product')
             ->where('id', $product_id)
             ->update(['publicationStatus'=>1]);
-        return redirect::to('/manage-product');    
+        return redirect::to('/manage-product');
     }
 
 //******************TOP PRODUCT*********************//
@@ -127,7 +127,7 @@ class ProductController extends Controller
       DB::table('product')
         ->where('id', $product_id)
         ->update(['top_product'=>1]);
-      return redirect::to('/manage-product');        
+      return redirect::to('/manage-product');
     }
 
     public function removeTopProduct($product_id)
@@ -135,7 +135,7 @@ class ProductController extends Controller
       DB::table('product')
         ->where('id', $product_id)
         ->update(['top_product'=>0]);
-      return redirect::to('/manage-product');  
+      return redirect::to('/manage-product');
     }
 
 
@@ -156,7 +156,7 @@ class ProductController extends Controller
                     ->get();
     $published_manufacturer=DB::table('manufacturer')
                         ->where('publicationStatus', 1)
-                        ->get();            
+                        ->get();
     $product_info = DB::table('product')
             ->where('id', $product_id)
             ->first();
@@ -165,7 +165,7 @@ class ProductController extends Controller
                 ->with('product_info', $product_info)
                 ->with('published_category', $published_category)
                 ->with('published_manufacturer', $published_manufacturer);
-        
+
         return view('admin.admin_master')
                 ->with('mainContent', $edit_product);
     }
@@ -200,21 +200,21 @@ class ProductController extends Controller
               $success = $image->move($upload_path, $image_name);
               if ($request->last_image_path) {
                 $old_image_path= $request->last_image_path;
-                unlink('public/products/'.$old_image_path);  
+                unlink('public/products/'.$old_image_path);
               }
               $data['product_image'] = $image_name;
               $result = DB::table('product')
                         ->where('id', $request->productId)
-                        ->update($data);   
+                        ->update($data);
               } else{
                   exit();
                   return redirect::to('edit-product')->with('error', 'Max file size not more than 5MB');
               }
-          } 
+          }
           else {
             return redirect::to('edit-product')->with('error', 'You have to put right file type( jpg/png/jpeg ) only');
           }
-        } 
+        }
         else{
             $data['product_image'] = $request->last_image_path;
             $result = DB::table('product')
@@ -230,7 +230,7 @@ class ProductController extends Controller
     } catch (\Exception $e) {
         $err_msg= \Lang::get($e->getMsg());
         return redirect::to('edit-product/'.$request->productId)->with('error', $err_msg);
-        }  
+        }
     }
 
 //################ [create ALTER IMAGES .... ]
@@ -243,23 +243,28 @@ class ProductController extends Controller
 //fetch uploaded images from database
       $altImages=DB::table('alt_images')
       ->where('product_id', $proInfo[0]->id)
-      ->get();            
+      ->get();
+
+////////////////////////////////
+      // $show_alt_images = DB::table('alt_images')
+      // ->where('product_id', $show_product_details->id)
+      // ->where('status', 1)
+      // ->get();
 
       $alter_image = view('admin.product.add-alter-image')
                     ->with('proInfo', $proInfo)
                     ->with('altImages', $altImages);
+                  //  ->with('show_alt_images', $show_alt_images);
 
       return view('admin.admin_master')
-            ->with('mainContent', $alter_image);            
-      // return view('admin.product.add-alter-image',compact('proInfo'));            
+            ->with('mainContent', $alter_image);
+      // return view('admin.product.add-alter-image',compact('proInfo'));
     }
 
     public function saveAlterImages(Request $request)
     {
       $data=array();
       $data['product_id']=$request->product_id ;
-      
-      //$data['status']=$request->product_id ;
 
 
       $files    = $request->file('image');
@@ -272,10 +277,10 @@ class ProductController extends Controller
 
 
       if($success){
-      $data['alt_image']=$image_url ;  
+      $data['alt_image']=$image_url ;
       $add_image = DB::table('alt_images')
               ->insert($data);
-       return back()->with('message','New Altr Images Added Successfully');       
+       return back()->with('message','New Altr Images Added Successfully');
 
       }
       else
@@ -296,18 +301,18 @@ class ProductController extends Controller
     {
       DB::table('alt_images')
             ->where('id', $id)
-            ->update(['status'=>1]);
-      return back();        
+            ->update(['status'=>0]);
+      return back();
     }
 
     public function publishedAltImage($id)
     {
         DB::table('alt_images')
             ->where('id', $id)
-            ->update(['status'=>0]);
-        return back();    
+            ->update(['status'=>1]);
+        return back();
     }
 
 
-   
+
 }

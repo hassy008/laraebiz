@@ -44,7 +44,7 @@ Manage Product
             ->where('product_id', $v_product->id)
             ->get();
         ?>            
-        <p>{{ count($img_count) }} images found</p>
+                    <p>{{ count($img_count) }} images found</p>
                         <a href="{{ url('/add-alt-images/'.$v_product->id) }}" class="btn btn-info" style="border-radius: 20px;"><i class="fa fa-plus"></i>Add</a>
                     </td>
 

@@ -17,7 +17,7 @@ class CreateAltImagesTable extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->string('alt_image');
-            $table->tinyinteger('status')->default(0);
+            $table->tinyinteger('status')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

@@ -16,11 +16,11 @@ Add Alter Images
   	 <div class="widget green">
   	 	<div class="widget-title">
   	 	  <h4><i class="icon-recorder">Add Alter Images
-</i></h4>	
+</i></h4>
   	 	  <span class="tools">
   	 	  	<a href="javascript;" class="glyphicon-chevron-down"></a>
   	 	  {{-- 	<a href="javascript;" class="icon-remove"></a> --}}
-  	 	  </span>		
+  	 	  </span>
   	 	</div>
     <h3 class="text text-center" style="color: green;">
     <?php
@@ -28,50 +28,50 @@ Add Alter Images
       if($message){
       	echo '<b>'.$message.'</b>';
       	Session::put('message');
-      }	
-    ?>	
+      }
+    ?>
     </h3>
- 	 
+
  	 <div class="widget-body">
  	 	{!! Form::open(['url'=>'/save-alt-image', 'method'=>'post', 'enctype'=>'multipart/form-data']) !!}
 
 
   <table class="table-bordered" style="height: 200px">
     <caption>Product Original Images</caption>
-   
+
       <tr>
         <td>Product Name: </td>
         <td>
-          <input type="text" class="form-control" name="product_name" value="{{ $proInfo[0]->product_name }}"> 
+          <input type="text" class="form-control" name="product_name" value="{{ $proInfo[0]->product_name }}">
           <input type="hidden" class="form-control" name="product_id" value="{{ $proInfo[0]->id }}">
         </td>
       </tr>
       <tr>
         <td>Product Image: </td>
         <td>
-          <img src="{{ asset('public/products/'.$proInfo[0]->product_image) }}" height="50" width="80"> 
+          <img src="{{ asset('public/products/'.$proInfo[0]->product_image) }}" height="50" width="80">
         </td>
       </tr>
-    
+
       <tr>
         <td>Upload Image: </td>
         <td>
-          <input type="file" name="image" class="form-control" name="product_name" value="{{ $proInfo[0]->product_name }}"> 
+          <input type="file" name="image" class="form-control" name="product_name" value="{{ $proInfo[0]->product_name }}">
         </td>
       </tr>
 
       <tr>
         <td colspan="2">
           <input type="submit" name="btn" value="Save Altr Image" class="btn btn-success btn-block">
-        </td>  
+        </td>
       </tr>
-   
+
   </table>
 
 
  	 	{!! Form::close() !!}
  	 </div>
-  		
+
 
 
    <div class="container">
@@ -93,44 +93,44 @@ Add Alter Images
          <td><img src="{{ asset($img->alt_image) }}" height="50" width="80"></td>
          <td>
           <?php
-            if( $img->status == 0 ) 
-            { 
-          ?>  
+            if( $img->status == 1 )
+            {
+          ?>
             <span class="label label-success label-mini">Published</span>
           <?php } else { ?>
             <span class="label label-important label-mini">Unpublished</span>
-          <?php } ?> 
+          <?php } ?>
          </td>
          <td>
         <!--publication-->
-        <?php 
-            if($img->status == 0 )
-            { 
-            ?>  
+        <?php
+            if($img->status == 1 )
+            {
+            ?>
             <a href="{{ url('/unpublished-alt-image/'.$img->id) }}" style="color:white;"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
             <?php } else{ ?>
             <a href="{{ url('/published-alt-image/'.$img->id) }}" style="color:white;"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
-            <?php } ?>  
+            <?php } ?>
 
-        <!--delete-->  
+        <!--delete-->
           <a href="{{ url('/delete-altImg/'.$img->id) }}" onclick="return checkDelete();"><button class="btn btn-danger"><i class="icon-trash "></i>
 
           </td>
-    @endforeach       
+    @endforeach
        </tr>
 
      </table>
   @else
-  <p class="alert alert-danger">This product have no Alter Images</p>   
+  <p class="alert alert-danger">This product have no Alter Images</p>
  @endif
 
    </div>
 
 
 <button type="" name="btn" class="btn btn-danger btn-block">
-        <a href="{{ url('/manage-product') }}" style="text-decoration: none; color: white;">Back to the Manage Product Page</a>  
+        <a href="{{ url('/manage-product') }}" style="text-decoration: none; color: white;">Back to the Manage Product Page</a>
       </button>
-    </div>	
+    </div>
   </div>
 </div>
 

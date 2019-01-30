@@ -34,26 +34,26 @@ Product Details
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title"><a href="#">Kids</a></h4>
 								</div>
 							</div>
-							
+
 						</div><!--/category-products-->
-					
+
 						<div class="brands_products"><!--brands_products-->
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-								
+
 									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
 								</ul>
 							</div>
 						</div><!--/brands_products-->
-						
+
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well">
@@ -61,14 +61,14 @@ Product Details
 								 <b>$ 0</b> <b class="pull-right">$ 600</b>
 							</div>
 						</div><!--/price-range-->
-						
+
 						<div class="shipping text-center"><!--shipping-->
 							<img src="images/home/shipping.jpg" alt="" />
 						</div><!--/shipping-->
-						
+
 					</div>
 				</div>
-				
+
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
@@ -77,28 +77,30 @@ Product Details
 								<h3>ZOOM</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
-								  <!-- Wrapper for slides -->
-								    <div class="carousel-inner">
 
+								  <!-- Wrapper for slides -->
+							<div class="carousel-inner">
+
+<!--########### ALTER IMAGES ################-->
 		<?php
 			$show_alt_images = DB::table('alt_images')
 		  		->where('product_id', $show_product_details->id)
-		  		->where('status', 0)
+		  		->where('status', 1)
 		  		->get();
 		$i=1;
-		foreach($show_alt_images as $alt_img) 
+		foreach($show_alt_images as $alt_img)
 		{
 			if($i==1){
 		?>
 						<div class="item active">
-				<?php } else{?>	
+				<?php } else{?>
 						<div class="item">
-				<?php } ?>			
+				<?php } ?>
 						  <img src="{{ asset($alt_img->alt_image) }}" style="width: 100%; height: 150px;">
 						</div>
-				<?php  $i++; } ?>								
-						</div>
+				<?php  $i++; } ?>
+						</div>		
+
 
 							  <!-- Controls -->
 							  <a class="left item-control" href="#similar-product" data-slide="prev">
@@ -114,11 +116,11 @@ Product Details
 							<div class="product-information"><!--/product-information-->
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2>{{ $show_product_details->product_name }}</h2>
-								
+
 								<img src="{{ asset($show_product_details->product_image) }}" alt="" />
 								<span>
 									<span>TK {{ $show_product_details->product_price }}</span>
-				{!! Form::open(['url' => '/add-to-cart', 'method'=>'post']) !!}	
+				{!! Form::open(['url' => '/add-to-cart', 'method'=>'post']) !!}
 						<label>Quantity:</label>
 							<input type="number" name="qty" value="1" min="1">
 							<input type="hidden" name="product_id" value="{{ $show_product_details->id }}" />
@@ -126,37 +128,33 @@ Product Details
 								<i class="fa fa-shopping-cart"></i>
 								Add to cart
 							</button>
-				{!! Form::close() !!}	
+				{!! Form::close() !!}
 								</span>
 								<p><b>Availability:</b> In Stock</p>
 								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> {{ $show_product_details->manufacturer_name }}</p> 
+								<p><b>Brand:</b> {{ $show_product_details->manufacturer_name }}</p>
 								<p><b>Category:</b> {{ $show_product_details->cat_name }}</p>
 								<p><b>Color:</b> {{ $show_product_details->product_color }}</p>
 {{-- 					<p><i class="{{ $show_product_details->product_color }}"></i></p> --}}
 								<p><b>Size:</b> {{ $show_product_details->product_size }}</p>
 								<a href=""><img src="{{ asset('public/frontEnd/')}}/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
-<?php
-	$show_alt_images = DB::table('alt_images')
-		->where('product_id', $show_product_details->id)
-		->where('status', 0)
-		->get();
-?>
-@if(count($show_alt_images) !=0 )
-<div class="col-md-12">
-	<h2 align="center">Other Images</h2>
-@foreach($show_alt_images as $alt_img)  
-  <div class="col-md-3">
-  	<img src="{{ asset($alt_img->alt_image) }} "height="50" width="80">	
-  </div>	
-@endforeach
-</div>
-@endif
+
+<!--########### ALTER IMAGES ################-->
+	@if(count($show_alt_images) !=0 )
+	<div class="col-md-12">
+		<h2 align="center">Other Images</h2>
+	@foreach($show_alt_images as $alt_img)
+	  <div class="col-md-3">
+	  	<img src="{{ asset($alt_img->alt_image) }} "height="50" width="80">
+	  </div>
+	@endforeach
+	</div>
+	@endif
 
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->
-					
+
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
@@ -168,9 +166,9 @@ Product Details
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade" id="details" >
-								<p>{{ $show_product_details->product_long_description }}</p>						
+								<p>{{ $show_product_details->product_long_description }}</p>
 							</div>
-							
+
 							<div class="tab-pane fade" id="companyprofile" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -185,7 +183,7 @@ Product Details
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="tab-pane fade" id="tag" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -199,9 +197,9 @@ Product Details
 										</div>
 									</div>
 								</div>
-							
+
 							</div>
-							
+
 							<div class="tab-pane fade active in" id="reviews" >
 								<div class="col-sm-12">
 
@@ -230,16 +228,16 @@ s.setAttribute('data-timestamp', +new Date());
 
 								</div>
 							</div>
-							
+
 						</div>
 					</div><!--/category-tab-->
-					
+
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>
-						
+
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
-								<div class="item active">	
+								<div class="item active">
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -277,7 +275,7 @@ s.setAttribute('data-timestamp', +new Date());
 										</div>
 									</div>
 								</div>
-								<div class="item">	
+								<div class="item">
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -321,12 +319,12 @@ s.setAttribute('data-timestamp', +new Date());
 							  </a>
 							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 								<i class="fa fa-angle-right"></i>
-							  </a>			
+							  </a>
 						</div>
 					</div><!--/recommended_items-->
-					
+
 				</div>
-			
+
 
 			</div>
 		</div>
