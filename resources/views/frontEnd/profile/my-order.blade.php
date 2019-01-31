@@ -26,7 +26,7 @@ tr:nth-child(even) {
 <div class="container">
 <h2>Order Details</h2>
 
-<table style="margin-bottom:15px;">
+<table style="margin-bottom:25px;">
   <tr>
 
     <th>Date</th>

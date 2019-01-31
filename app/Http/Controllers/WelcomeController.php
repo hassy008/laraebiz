@@ -162,7 +162,7 @@ class WelcomeController extends Controller
         ->leftjoin('order','order.order_id','=','order_details.order_id')
         ->leftjoin('product','product.id','=','order_details.product_id')
         ->where('order.customer_id', '=', $customer_id)
-        //->where('')
+        ->orderBy('order_details_id', 'desc')
         ->get();
 
       $view_order_page=view('frontEnd.profile.my-order')

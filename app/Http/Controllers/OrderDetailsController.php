@@ -133,7 +133,15 @@ class OrderDetailsController extends Controller
 
   public function updateOrder(Request $request)
   {
-    return back();
+    $data = array();
+    $data['order_status']=$request->order_status;
+    $order_id = $request->order_id;
+
+    DB::table('order')
+      ->where('order_id', $order_id)
+      ->update($data);
+
+    return back()->with('status', 'Update Done');
 
   }
 

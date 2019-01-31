@@ -42,7 +42,7 @@ Route::get('/payment','CheckoutController@payment');
 Route::post('/save-order','CheckoutController@saveOrder');
 
 
-//admin manage-order
+//admin manage-ordered by Customer
 Route::get('/manage-order','OrderDetailsController@manageOrder');
 Route::get('/view-order/{id}','OrderDetailsController@viewOrder');
 Route::get('/edit-order/{id}', 'OrderDetailsController@editOrder');

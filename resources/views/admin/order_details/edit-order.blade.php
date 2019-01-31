@@ -1,6 +1,6 @@
 @extends('admin.admin_master')
 @section('title')
-Edit Order 
+Edit Invoice Status 
 @endsection
 
 @section('mainContent')
@@ -16,7 +16,18 @@ Edit Order
                  <a href="javascript:;" class="icon-remove"></a>
              </span>
            </div>
+
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
+
+
            <div class="widget-body">
+{!! Form::open(['url'=>'/update-order', 'method'=>'post', 'name'=>'editInvoiceForm']) !!}
+
                <div class="row-fluid">
                    <div class="span12">
                        <div class="text-center">
@@ -85,6 +96,7 @@ Edit Order
                            <tr>
                              <td>Invoice Number: </td>
                              <td><strong>{{ $orderData->order_id }}</strong></td>
+                             <td><input type="hidden" name="order_id" value="{{ $orderData->order_id }}"></td>
                            </tr>
                             <tr>
                              <td>Invoice Date: </td>
@@ -94,35 +106,37 @@ Edit Order
                              <td>Payment Type: </td>
                              <td>{{ $orderData->payment_type }}</td>
                            </tr>
-                            <tr>
-                             <td>Order Status: </td>
-            <?php
-             $orderStatusOption=array(
-              'pending'    => 'Pending',
-              'processing' => 'Processing',
-              'canceled'   => 'Canceled',
-              'in_shipment'=> 'In Shipment',
-              'complete'   => 'Complete',
-              );
-            ?>
-               <td>{{ Form::select('order_status',$orderStatusOption,$orderData->order_status) }}</td>
-                             
-                           </tr>
+
                             <tr>
                              <td>Payment Status: </td>
-            <?php
-             $paymentStatusOption=array(
-              'pending'    => 'Pending',
-              'received' => 'Received',
-              'canceled'   => 'Canceled',
-              );
-            ?>         
-               <td>{{ Form::select('payment_status',$paymentStatusOption,$orderData->payment_status) }}</td>
+                             <td>
+                              <select name="payment_status">
+                                 <option value="pending">Pending</option>
+                                <option value="received">Received</option>
+                                <option value="canceled">Canceled</option>
+                              </select>         
+                            </td>
                            </tr>
-                        
+                           
+                            <tr>
+                             <td>Order Status: </td>
+                             <td>
+                                <select name="order_status">
+                                 <option value="Pending">Pending</option>
+                                 <option value="Dispatched">Dispatched</option>
+                                 <option value="Processed">Processed</option>
+                                 <option value="Shipped">Shipped</option>
+                                 <option value="Delivered">Delivered</option>
+                              </select>         
+                            </td>
+                           </tr>
+
+                               
                        </table>
                    </div>
                </div>
+              
+
                <div class="space20"></div>
                <div class="space20"></div>
                <div class="row-fluid">
@@ -161,10 +175,14 @@ Edit Order
                    </div>
                </div>
                <div class="space20"></div>
+               
                <div class="row-fluid text-center">
-                   <a type="submit" class="btn btn-success btn-large hidden-print"> Update Invoice <i class="icon-check"></i></a>
-                   
+                  <button type="submit" name="btn" class="btn btn-success btn-block">Update Invoice <i class="icon-check"></i></button>
+                  <button type="submit" name="btn" class="btn btn-danger btn-block">
+                    <a href="{{ url('/manage-order') }}" style="text-decoration: none; color: white;">Back to Manage Order</a> 
+                  </button>
                </div>
+         {!! Form::close() !!}          
            </div>
        </div>
        <!-- END BLANK PAGE PORTLET-->
@@ -172,5 +190,10 @@ Edit Order
 </div>
 <!-- END PAGE CONTENT-->
 
+<script>
+  document.forms['editInvoiceForm'].elements['payment_status'].value='{{ $orderData->payment_status }}';
+  document.forms['editInvoiceForm'].elements['order_status'].value='{{ $orderData->order_status }}';
+
+</script>
 
 @endsection   

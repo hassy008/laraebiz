@@ -65,7 +65,6 @@ Edit Category
  	  			<option>Select Category</option>
  	  			<option value="1">Publish</option>
  	  			<option value="0">Unpublish</option>
- 	  			
  	  		</select>
  	  	</div>
  	  </div>	
