@@ -111,7 +111,7 @@ View Order
                    <table class="table table-striped table-hover">
                        <thead>
                        <tr>
-                           <th>Product Id</th>
+                           <th>Order Details Id</th>
                            <th>Product Name</th>
                            <th class="hidden-480">Product Price</th>
                            <th class="hidden-480">Product Quantity</th>

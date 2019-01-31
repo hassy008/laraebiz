@@ -17,16 +17,33 @@ Manage Product
         </div>
 
         <div class="widget-body">
+
+<h3>
+  @if(session('status'))
+    <div class="alert alert-success text-center">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+        <b>{{ session('status') }}</b>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger text-center">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+        <b>{{ session('error') }}</b>
+    </div>
+  @endif
+</h3>
+
             <table class="table table-striped table-bordered table-advance table-hover">
                 <thead>
                 <tr>
-                    <th><i class="icon-bullhorn"></i> Product Name</th>
-                    <th class="hidden-phone"><i class="icon-question-sign"></i> Descrition</th>
+                    <th width="10%"><i class="icon-bullhorn"></i> Product Name</th>
+                    <th class="hidden-phone"  width="45%"><i class="icon-question-sign"></i> Descrition</th>
                     <th><i class="icon-bookmark"></i> Product Price</th>
                     <th>Product Image</th>
                     <th>Alter Image</th>
                     <th><i class=" icon-edit"></i> Status</th>
-                    <th>Action</th>
+                    <th width="10%">Action</th>
                 </tr>
                 </thead>
            
@@ -72,9 +89,9 @@ Manage Product
 						if($v_product->publicationStatus == 1 )
 						{	
 						?>  
-						<a href="{{ url('/unpublished-product/'.$v_product->id) }}" style="color:white;"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
+						<a href="{{ url('/unpublished-product/'.$v_product->id) }}" style="color:white;" title="Unpublished Your Product"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
 						<?php } else{ ?>
-						<a href="{{ url('/published-product/'.$v_product->id) }}" style="color:white;"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
+						<a href="{{ url('/published-product/'.$v_product->id) }}" style="color:white;" title="Published Your Product"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
 						<?php } ?>
 
                 <!--top product---->

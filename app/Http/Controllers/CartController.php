@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\redirect;
 use Session;
-use App\products;
+use App\products; //easyshop55 for stock fucntionality
 session_start();
 use Cart;
 
@@ -85,14 +85,6 @@ class CartController extends Controller
             $msg = " Out of Stock";
             return back()->with('error', $msg);
         }
-
-
-
-
-
-
-
-
 
 
     }

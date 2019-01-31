@@ -25,6 +25,7 @@ Route::get('/view-product/{product_id}', 'WelcomeController@productDetailsById')
 Route::get('/profile-customer/{id}', 'WelcomeController@editCustomerProfile');
 Route::post('/update-customer-profile', 'WelcomeController@updateCustomerProfile');
 Route::get('/my-order', 'WelcomeController@myOrder');
+Route::get('/track-order/{id}', 'WelcomeController@trackOrder');
 
 //****************cart product*****************
 Route::post('/add-to-cart', 'CartController@addToCart');

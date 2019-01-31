@@ -156,7 +156,7 @@ class WelcomeController extends Controller
 
     public function myOrder()
     {
-$customer_id=Session::get('customer_id');  
+      $customer_id=Session::get('customer_id');  
 
       $orders = DB::table('order_details')
         ->leftjoin('order','order.order_id','=','order_details.order_id')
@@ -172,6 +172,20 @@ $customer_id=Session::get('customer_id');
            ->with('mainContent', $view_order_page);
      
     }
+
+    public function trackOrder($id)
+    {
+      $track_order_details = DB::table('order')
+                 ->where('order_id', $id)
+                 ->first();
+
+      $track_order_page=view('frontEnd.profile.track-order')
+            ->with('track_order_details', $track_order_details);
+            
+      return view('frontEnd.master')
+           ->with('mainContent', $track_order_page);
+    }
+
 //#########################  End  Customer    ################################
 
 

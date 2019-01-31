@@ -111,7 +111,7 @@ class ProductController extends Controller
       DB::table('product')
             ->where('id', $product_id)
             ->update(['publicationStatus'=>0]);
-      return redirect::to('/manage-product');
+      return back()->with('error', 'Product Unpublished Successfully');
     }
 
     public function publishedProduct($product_id)
@@ -119,7 +119,7 @@ class ProductController extends Controller
         DB::table('product')
             ->where('id', $product_id)
             ->update(['publicationStatus'=>1]);
-        return redirect::to('/manage-product');
+        return back()->with('status', 'Product Published Successfully');
     }
 
 //******************TOP PRODUCT*********************//
@@ -128,7 +128,8 @@ class ProductController extends Controller
       DB::table('product')
         ->where('id', $product_id)
         ->update(['top_product'=>1]);
-      return redirect::to('/manage-product');
+     // return redirect::to('/manage-product');
+        return back()->with('status', 'Product Added to Top Product List');
     }
 
     public function removeTopProduct($product_id)
@@ -136,17 +137,19 @@ class ProductController extends Controller
       DB::table('product')
         ->where('id', $product_id)
         ->update(['top_product'=>0]);
-      return redirect::to('/manage-product');
+     // return redirect::to('/manage-product');
+      return back()->with('error', 'Product Removed from Top Product List');
     }
 
 
 //******************Delete PRODUCT*********************//
     public function deleteProduct($product_id)
     {
-        DB::table('product')
-            ->where('id', $product_id)
-            ->delete();
-        return redirect::to('/manage-product');
+      DB::table('product')
+        ->where('id', $product_id)
+        ->delete();
+       // return redirect::to('/manage-product');
+      return back()->with('error', 'Product Deleted Successfully');  
     }
 
 //******************EDIT PRODUCT*********************//

@@ -17,14 +17,29 @@ Manage Category
         </div>
 
         <div class="widget-body">
+
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('error') }}</b>
+</div>
+@endif
+
             <table class="table table-striped table-bordered table-advance table-hover">
                 <thead>
                 <tr>
-                    <th> ID</th>
-                    <th> Category Name</th>
-                    <th>Category Description</th>
-                    <th> Status</th>
-                    <th>Action</th>
+                    <th width="10%"> ID</th>
+                    <th width="20%"> Category Name</th>
+                    <th width="45%">Category Description</th>
+                    <th width="10%"> Status</th>
+                    <th width="15%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,9 +64,9 @@ Manage Category
                     if($v_category->publicationStatus==1 )
                     {	
                   ?>  
-                    <a href="{{ url('/unpublished-category/'.$v_category->cat_id) }}" style="color:white;"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
+                    <a href="{{ url('/unpublished-category/'.$v_category->cat_id) }}" style="color:white;" title="Unpublished Your Category"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
                   <?php } else{ ?>
-                    <a href="{{ url('/published-category/'.$v_category->cat_id) }}" style="color:white;"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
+                    <a href="{{ url('/published-category/'.$v_category->cat_id) }}" style="color:white;" title="Published Your Category"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
                   <?php } ?>
                         
                         <a href="{{ url('/edit-category/'.$v_category->cat_id) }}" style="color:white;"><button class="btn btn-primary"><i class="icon-pencil"></i></button></a>

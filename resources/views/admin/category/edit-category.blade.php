@@ -16,15 +16,21 @@ Edit Category
   	 	  {{-- 	<a href="javascript;" class="icon-remove"></a> --}}
   	 	  </span>		
   	 	</div>
-    <h3 class="text text-center" style="color: green;">
-    <?php
-      $message=Session::get('message');
-      if($message){
-      	echo '<b>'.$message.'</b>';
-      	Session::put('message');
-      }	
-    ?>	
-    </h3>
+
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('error') }}</b>
+</div>
+@endif
+    
  	 
  	 <div class="widget-body">
  	 	{!! Form::open(['url'=>'/update-category', 'method'=>'post', 'name'=>'editCategoryForm']) !!}

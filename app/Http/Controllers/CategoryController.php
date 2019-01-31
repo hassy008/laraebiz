@@ -61,7 +61,7 @@ class CategoryController extends Controller
         DB::table('category')
             ->where('cat_id', $category_id)
             ->update(['publicationStatus' => 0]);
-        return redirect::to('/manage-category');    
+        return back()->with('error', 'Category Unpublished Successfully');    
     }
 
     public function publishedCategory($category_id)
@@ -69,7 +69,7 @@ class CategoryController extends Controller
         DB::table('category')
             ->where('cat_id', $category_id)
             ->update(['publicationStatus' => 1]);
-        return redirect::to('/manage-category');    
+        return back()->with('status', 'Category Published Successfully');    
     }
 
     public function deleteCategory($category_id)
@@ -108,74 +108,11 @@ class CategoryController extends Controller
         DB::table('category')
             ->where('cat_id', $cat_id)
             ->update($data);
-        return redirect::to('/manage-category');    
+        //return redirect::to('/manage-category');    
+        return back()->with('status', 'Category Updated Successfully');    
 
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

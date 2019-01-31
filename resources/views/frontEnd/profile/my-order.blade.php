@@ -36,14 +36,14 @@ tr:nth-child(even) {
     <th>Order Status</th>
     <th>View</th>
   </tr>
-  @foreach($orders as $v_ord)
+  @foreach($orders as $v_order)
   <tr>
-  	<td>{{ $v_ord->created_at }}</td>
-    <td>{{ $v_ord->product_name }}</td>
-    <td>{{ $v_ord->product_price }}</td>
-    <td>{{ $v_ord->product_quantity }}</td>
-    <td>{{ $v_ord->order_status }}</td>
-    <td><a href="{{ url('/track-order') }}" title=""></a>Track Order</td>
+  	<td>{{ $v_order->created_at }}</td>
+    <td>{{ $v_order->product_name }}</td>
+    <td>{{ $v_order->product_price }}</td>
+    <td>{{ $v_order->product_quantity }}</td>
+    <td>{{ $v_order->order_status }}</td>
+    <td><a href="{{ url('/track-order/'.$v_order->order_id) }}" title=""><i class="fa fa-map-marker"></i> Track Order</a></td>
   </tr>
     @endforeach
 </table>

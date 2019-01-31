@@ -9,7 +9,7 @@ Manage Manufacturer
     <!-- BEGIN BASIC PORTLET-->
     <div class="widget orange">
         <div class="widget-title">
-            <h4><i class="icon-reorder"></i> Manage Category </h4>
+            <h4><i class="icon-reorder"></i> Manage Manufacturer </h4>
         <span class="tools">
             <a href="javascript:;" class="icon-chevron-down"></a>
             <a href="javascript:;" class="icon-remove"></a>
@@ -25,14 +25,30 @@ Manage Manufacturer
     ?>  
     </h3>
         <div class="widget-body">
+<h3>
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('error') }}</b>
+</div>
+@endif
+</h3>
+
             <table class="table table-striped table-bordered table-advance table-hover">
                 <thead>
                 <tr>
-                    <th> ID</th>
-                    <th> Manufacturer Name</th>
-                    <th> Manufacturer Description</th>
-                    <th> Status</th>
-                    <th> Action</th>
+                    <th width="10%"> ID</th>
+                    <th width="20%"> Manufacturer Name</th>
+                    <th width="45%">Manufacturer Description</th>
+                    <th width="10%"> Status</th>
+                    <th width="15%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,9 +72,9 @@ Manage Manufacturer
 	                    if($v_manufacturer->publicationStatus==1 )
     	                {	
         	          ?>  	
-                        <a href="{{ url('/unpublished-manufacturer/'.$v_manufacturer->manufacturer_id) }}" ><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
+                        <a href="{{ url('/unpublished-manufacturer/'.$v_manufacturer->manufacturer_id) }}"  title="Unpublished Your Manufacturer"><button class="btn btn-danger"><i class="icon-thumbs-down"></i></button></a>
                       <?php } else { ?>
-                       <a href="{{ url('/published-manufacturer/'.$v_manufacturer->manufacturer_id) }}" ><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
+                       <a href="{{ url('/published-manufacturer/'.$v_manufacturer->manufacturer_id) }}"  title="Published Your Manufacturer"><button class="btn btn-success"><i class="icon-thumbs-up"></i></button></a>
                       <?php } ?>  
 
                         <a href="{{ url('/edit-manufacturer/'.$v_manufacturer->manufacturer_id) }}"><button class="btn btn-primary"><i class="icon-pencil"></i></button></a>

@@ -15,6 +15,21 @@ Edit Manufacturer
   	 	  </span>		
   	 	</div>
  
+<h3>
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('error') }}</b>
+</div>
+@endif
+</h3>
  	 
  	 <div class="widget-body">
  	 	{!! Form::open(['url'=>'/update-manufacturer', 'method'=>'post', 'name'=>'editmanufacturerform']) !!}
