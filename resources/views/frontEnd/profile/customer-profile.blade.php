@@ -7,7 +7,7 @@ Update Profile
 	
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<div class="signup-form"><!--sign up form-->
 						<h2> {{ Session::get('customer_name') }}  Profile </h2>
 		
@@ -25,9 +25,12 @@ Update Profile
 					</div><!--/sign up form-->
 
 					<div>
-						<a href="{{ url('/my-order') }}" title="My Order" class="btn btn-default" style="margin-top: 5px;">My Order</a>
+						
 					</div>
 				</div>
+				<div class="col-sm-4">
+					<a href="{{ url('/my-order') }}" title="My Order"><button class="btn btn-info">My Order</button></a>
+				</div>	
 			</div>
 		</div>
 

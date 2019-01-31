@@ -28,9 +28,6 @@ Cart Details
 </div>
 @endif
 
-
-
-
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Image</td>

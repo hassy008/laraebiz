@@ -73,13 +73,12 @@ My Order
 		<div class="wrapper">
       <div class="row">
 		<div class="col-sm-12">
-		<div class="breadcrumbs">
-		<ul>
-			<li><a href="{{url('/')}}">Home </a></li>
-			<li><span class="dot">/</span>
-			<a href="{{url('/my-order')}}"> My Order </a></li>
-		</ul>
-		</div>
+  		<div class="breadcrumbs">
+        <ol class="breadcrumb">
+          <li><a href="{{ url('/') }}">Home</a></li>
+          <li class=""> <a href="{{ url('/my-order') }}"> My Order </a> </li>
+        </ol>
+      </div>
 		</div>
 	     </div>
 
@@ -92,7 +91,9 @@ My Order
              <div class="col-md-4"><h3>Total: TK ({{ $track_order_details->order_total }})</h3> </div>
              <div class="col-md-4"><h3> Status: <mark> {{ $track_order_details->order_status }}</h3></mark></div>
             </div>
-<div class="widget-body">
+
+<div class="widget-body" style="margin-bottom:155px; margin-top: 40px;">
+
                @if( $track_order_details->order_status=='Pending' )
                @include('frontEnd.profile.steps.pending')
 
@@ -108,9 +109,7 @@ My Order
                @elseif($track_order_details->order_status=='Delivered')
                @include('frontEnd.profile.steps.delivered')
 
-               @endif
-              
-
+               @endif           
         </div>
 
         </div>
