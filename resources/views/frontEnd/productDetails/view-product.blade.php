@@ -5,7 +5,12 @@ Product Details
 @endsection
 
 @section('mainContent')
-
+@if(session('status'))
+<div class="alert alert-success text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+    <b>{{ session('status') }}</b>
+</div>
+@endif
 	<section>
 		<div class="container">
 			<div class="row">
@@ -139,18 +144,37 @@ Product Details
 								<p><b>Size:</b> {{ $show_product_details->product_size }}</p>
 								<a href=""><img src="{{ asset('public/frontEnd/')}}/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 
-<!--########### ALTER IMAGES ################-->
-	@if(count($show_alt_images) !=0 )
-	<div class="col-md-12">
-		<h2 align="center">Other Images</h2>
-	@foreach($show_alt_images as $alt_img)
-	  <div class="col-md-3">
-	  	<img src="{{ asset($alt_img->alt_image) }} "height="50" width="80">
-	  </div>
-	@endforeach
-	</div>
-	@endif
+	<!--############### ALTER IMAGES ################-->
+			@if(count($show_alt_images) !=0 )
+			<div class="col-md-12">
+				<h2 align="center">Other Images</h2>
+			@foreach($show_alt_images as $alt_img)
+			  <div class="col-md-3">
+			  	<img src="{{ asset($alt_img->alt_image) }} "height="50" width="80">
+			  </div>
+			@endforeach
+			</div>
+			@endif
 
+		<?php 
+		  $wishData = DB::table('wishlist')
+		  		//->where('wishlist_id', $show_product_details->id)
+		  		//->get();
+		  ->leftjoin('product','wishlist.product_id','=','product.id')
+		  ->where('wishlist.product_id','=',$show_product_details->id)->get();
+		  	//print_r($wishData);	
+		  $count=App\Wishlist::where(['product_id'=>$show_product_details->id])->count();
+		  if($count == '0'){
+		?>
+			{!! Form::open(['url' => '/add-to-wishlist' ]) !!}	
+				<input type="hidden" name="product_id" value="{{ $show_product_details->id }}" />
+				<input type="submit" value="Add To Wishlist" class="btn btn-success" >
+				{{-- <a href="#" class="btn btn-success" style="color: white;"><i class="fa fa-plus-square"></i> Add to wishlist</a> --}}
+			{!! Form::close() !!}
+		<?php } else{ ?>	
+			<h3 style="color: green;">Already added to Wishlist <br><a href="{{ url('/view-wishlist') }}" class="btn btn-success" >Wishlist</a></h3>
+
+		<?php } ?>		
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->

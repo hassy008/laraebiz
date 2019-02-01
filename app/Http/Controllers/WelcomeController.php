@@ -9,6 +9,8 @@ use Session;
 use Illuminate\Support\Facades\redirect;
 session_start();
 
+use App\Wishlist;
+
 class WelcomeController extends Controller
 {
 //######################  Show PUBLISHED Product on Homepage    ###################################
@@ -109,6 +111,38 @@ class WelcomeController extends Controller
                 ->with('mainContent', $product_details);
     }
 /**################  Show Product Details End [localhost/laraebiz/view-product/1]   ################*/
+
+
+//######################### WISHLIST ######################
+  public function addToWishlist(Request $request)
+  {
+    $wishlist = new Wishlist;
+     $wishlist->customer_id = session::get('customer_id');
+     $wishlist->product_id = $request->product_id;
+     $wishlist->save();
+
+   return back()->with('status','Wishlisted your Product');
+  }
+
+  public function viewWishlist()
+  {
+    $customer_id = session::get('customer_id');
+    $products = DB::table('wishlist')
+        ->leftjoin('product','wishlist.product_id','=','product.id')
+        ->where('customer_id', $customer_id)
+        //->get();
+        ->paginate(9);
+
+    $view_wishlist=view('frontEnd.wishlist.view-wishlist')
+           ->with('products', $products);
+
+    return view('frontEnd.master')
+                ->with('mainContent', $view_wishlist);
+  }
+
+
+
+
 
 
 //#########################  Began  Customer  Profile Edit  ################################

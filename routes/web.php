@@ -21,6 +21,12 @@ Route::get('/contact', 'MapController@index');
 Route::get('/product-by-category/{cat_id}', 'WelcomeController@showProductByCategory');
 Route::get('/view-product/{product_id}', 'WelcomeController@productDetailsById');
 
+
+//############ wishlist ##############
+Route::post('/add-to-wishlist', 'WelcomeController@addToWishlist');
+Route::get('/view-wishlist', 'WelcomeController@viewWishlist');
+
+
 /************ [ Customer Profile] ***************/
 Route::get('/profile-customer/{id}', 'WelcomeController@editCustomerProfile');
 Route::post('/update-customer-profile', 'WelcomeController@updateCustomerProfile');
@@ -42,7 +48,7 @@ Route::get('/payment','CheckoutController@payment');
 Route::post('/save-order','CheckoutController@saveOrder');
 
 
-//admin manage-ordered by Customer
+//Admin Section manage-ordered by Customer
 Route::get('/manage-order','OrderDetailsController@manageOrder');
 Route::get('/view-order/{id}','OrderDetailsController@viewOrder');
 Route::get('/edit-order/{id}', 'OrderDetailsController@editOrder');
