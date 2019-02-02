@@ -25,6 +25,7 @@ Route::get('/view-product/{product_id}', 'WelcomeController@productDetailsById')
 //############ wishlist ##############
 Route::post('/add-to-wishlist', 'WelcomeController@addToWishlist');
 Route::get('/view-wishlist', 'WelcomeController@viewWishlist');
+Route::get('/remove-wishlist/{id}', 'WelcomeController@removeWishlist');
 
 
 /************ [ Customer Profile] ***************/

@@ -5,6 +5,7 @@ Product Details
 @endsection
 
 @section('mainContent')
+
 @if(session('status'))
 <div class="alert alert-success text-center">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
@@ -156,23 +157,26 @@ Product Details
 			</div>
 			@endif
 
-		<?php 
+		<?php
 		  $wishData = DB::table('wishlist')
 		  		//->where('wishlist_id', $show_product_details->id)
 		  		//->get();
 		  ->leftjoin('product','wishlist.product_id','=','product.id')
-		  ->where('wishlist.product_id','=',$show_product_details->id)->get();
+		  ->where('wishlist.product_id','=',$show_product_details->id)
+		  //->where('wishlist.customer_id', $customer_id)
+		  ->get();
 		  	//print_r($wishData);	
 		  $count=App\Wishlist::where(['product_id'=>$show_product_details->id])->count();
-		  if($count == '0'){
+		 
 		?>
-			{!! Form::open(['url' => '/add-to-wishlist' ]) !!}	
+		<?php  if($count =="0"){?>
+			{!! Form::open(['url' => '/add-to-wishlist', 'method'=>'post' ]) !!}	
 				<input type="hidden" name="product_id" value="{{ $show_product_details->id }}" />
-				<input type="submit" value="Add To Wishlist" class="btn btn-success" >
+				<input type="submit" value="Add To Wishlist" class="btn btn-success" style="margin-top:10px;">
 				{{-- <a href="#" class="btn btn-success" style="color: white;"><i class="fa fa-plus-square"></i> Add to wishlist</a> --}}
 			{!! Form::close() !!}
 		<?php } else{ ?>	
-			<h3 style="color: green;">Already added to Wishlist <br><a href="{{ url('/view-wishlist') }}" class="btn btn-success" >Wishlist</a></h3>
+			<h3 style="color: green;">Already added to Wishlist <br><a href="{{ url('/view-wishlist') }}" class="btn btn-success" style="margin-top:10px;">Wishlist</a></h3>
 
 		<?php } ?>		
 							</div><!--/product-information-->

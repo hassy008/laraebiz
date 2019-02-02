@@ -77,9 +77,8 @@ class CheckoutController extends Controller
 
   	$payment_data=array();
   	$payment_data['payment_type']=$payment_type;
-  	$payment_data['payment_status']='pending';
-  	
-  	$payment_id= DB::table('payment')
+  	$payment_data['payment_status']='pending';  	
+    	$payment_id= DB::table('payment')
   			->insertGetId($payment_data);
 
   	$order_data=array();
@@ -87,25 +86,22 @@ class CheckoutController extends Controller
   	$order_data['shipping_id'] = Session::get('shipping_id') ;
   	$order_data['payment_id']  = $payment_id ;
   	$order_data['order_total'] = Session::get('total') ;
-
-  	$order_id= DB::table('order')
+    	$order_id= DB::table('order')
   			->insertGetId($order_data);
 
   	$order_details_data= array();
   	$order_details_data['order_id']= $order_id ;		
+    	$contents = Cart::content();
+      	foreach($contents as $v_content)
+      	{
+      	  $order_details_data['product_id']= $v_content->id ;
+      	  $order_details_data['product_name']= $v_content->name ;
+      	  $order_details_data['product_price']= $v_content->price ;	
+      	  $order_details_data['product_quantity']= $v_content->qty ;
 
-  	$contents = Cart::content();
-  	foreach($contents as $v_content)
-  	{
-  	  $order_details_data['product_id']= $v_content->id ;
-  	  $order_details_data['product_name']= $v_content->name ;
-  	  $order_details_data['product_price']= $v_content->price ;	
-  	  $order_details_data['product_quantity']= $v_content->qty ;
-
-  	  $order_details_id= DB::table('order_details')
-  			->insertGetId($order_details_data);
+      	  $order_details_id= DB::table('order_details')
+      			->insertGetId($order_details_data);
   	}	
-
 
   	Cart::destroy();
   	if ($payment_type == 'cashOnDelivery') 

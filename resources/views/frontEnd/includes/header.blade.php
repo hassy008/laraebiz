@@ -66,7 +66,10 @@
 
 								<li><a href="{{ url('/profile-customer') }}"> Account</a></li>
 
-								<li><a href="{{ url('/view-wishlist') }}"><i class="fa fa-star"></i> Wishlist({{ App\Wishlist::count() }})</a></li>
+								<li><a href="{{ url('/view-wishlist') }}"><i class="fa fa-star"></i> Wishlist<span style="color: green; font-weight: bold;">({{ App\Wishlist::count() }})</span></a>
+								</li>
+
+
 					<?php 
 						$customer_id=Session::get('customer_id');		
 						$shipping_id=Session::get('shipping_id');
@@ -88,7 +91,7 @@
 					@if($customer_id == Null && $shipping_id == Null)
 						
 					@else
-						<li><a href="{{ url('/show-cart') }}"><i class="fa fa-shopping-cart"></i> Cart({{ Cart::count() }})</a></li>	
+						<li><a href="{{ url('/show-cart') }}"><i class="fa fa-shopping-cart"></i> Cart<span style="color: green; font-weight: bold;">({{ Cart::count() }})</span></a></li>	
 					@endif
 
 

@@ -27,7 +27,9 @@ Cart Details
 	{{ session('error') }}
 </div>
 @endif
-
+<?php if($contents->isEmpty()) {?>
+		<img src="{{ asset('public/frontEnd/cart-empty.png') }}" style="width: 100%; height: 650px; ">
+	<?php } else{?>	
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Image</td>
@@ -39,6 +41,7 @@ Cart Details
 						</tr>
 					</thead>
 					<tbody>
+						
 				@foreach($contents as $v_content)		{{-- from cartController --}}
 						<tr>
 							<td class="cart_product">
@@ -83,6 +86,7 @@ Cart Details
 							</td>
 						</tr>
 				@endforeach		<!--             END FOREACH          -->
+		 	
 					</tbody>
 				</table>
 			</div>
@@ -195,6 +199,7 @@ Cart Details
 		</div>
 	</section><!--/#do_action-->
 
+				<?php } ?>	
 
 
 

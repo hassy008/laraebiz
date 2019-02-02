@@ -133,6 +133,9 @@ class WelcomeController extends Controller
         //->get();
         ->paginate(9);
 
+
+
+    //Session::put('wishlist_id', $products->wishlist_id);
     $view_wishlist=view('frontEnd.wishlist.view-wishlist')
            ->with('products', $products);
 
@@ -140,9 +143,13 @@ class WelcomeController extends Controller
                 ->with('mainContent', $view_wishlist);
   }
 
-
-
-
+  public function removeWishlist($id)
+  {
+    DB::table('wishlist')
+      ->where('product_id', $id)
+      ->delete();
+    return back()->with('error', 'Remove Product From Wishlist');  
+  } 
 
 
 //#########################  Began  Customer  Profile Edit  ################################
